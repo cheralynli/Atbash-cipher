@@ -25,6 +25,29 @@ def encode(plain_text):
         cipher= cipher[:-1]
     return cipher
 
-plain_text= input("Enter text to encode: ")
-encoded_text= encode(plain_text)
-print("Encoded text:", encoded_text)
+def decode(ciphered_text):
+    cipherednospace=ciphered_text.strip(" ")
+    alphabet= "abcdefghijklmnopqrstuvwxyz"
+    reversedalphabet= alphabet[::-1]
+    numbers= "123456789"
+    plaintext=""
+    for char in cipherednospace:
+        if char.lower() in alphabet:
+            if char.isupper():
+                newtext= alphabet[reversedalphabet.index(char.lower())]
+                plaintext=plaintext+newtext
+            else:
+                newtext= reversedalphabet[alphabet.index(char)]
+                plaintext=plaintext+newtext    
+        elif char in numbers:
+            plaintext=plaintext+char
+        else:
+            plaintext=plaintext
+    return plaintext
+
+choice= input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+text= input("Type your message:\n")
+if choice=="encode":
+    print(encode(text))
+elif choice=="decode":
+    print(decode(text))
